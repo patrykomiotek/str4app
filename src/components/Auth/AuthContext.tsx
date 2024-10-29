@@ -18,7 +18,7 @@ export const useAuthContext = () => {
     return context;
   }
   throw new ReactContextError(
-    "Oh no! Component should be placed inside Auth Context"
+    "Oh no! Component should be placed inside AuthProvider"
   );
 };
 
