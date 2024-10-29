@@ -2,14 +2,28 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
-import { Button as Kaczke } from "@mui/material";
+import {
+  createTheme,
+  Button as Kaczke,
+  // makeStyles,
+  ThemeProvider,
+} from "@mui/material";
+
 import { Button, Input } from "./ui";
+
+const theme = createTheme();
+
+// const useStyles = makeStyles((theme) => {
+//   root: {
+//     // some CSS that accesses the theme
+//   }
+// });
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <Kaczke variant="contained">Hello world</Kaczke>
       <div>
         <a href="https://vite.dev" target="_blank">
@@ -31,7 +45,7 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
-    </>
+    </ThemeProvider>
   );
 }
 
