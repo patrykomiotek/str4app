@@ -28,7 +28,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <Kaczke variant="contained">Hello world</Kaczke>
       <div>
-        <AuthInfo />
+        {/* <AuthInfo /> */}
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
