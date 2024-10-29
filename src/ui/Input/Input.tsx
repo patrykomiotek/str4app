@@ -1,3 +1,8 @@
 export const Input = () => {
-  return <input />;
+  return (
+    <div>
+      <label htmlFor="my-input">My Input</label>
+      <input id="my-input" />
+    </div>
+  );
 };
