@@ -22,7 +22,11 @@ export const useAuthContext = () => {
   );
 };
 
-export const useAuth = () => {
+/**
+ * @deprecated Do not use directly!
+ * @returns
+ */
+export const useInternalAuth = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const toggle = () => setIsLoggedIn((value) => !value);
@@ -33,7 +37,7 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const { isLoggedIn, toggle, logIn, logOut } = useAuth();
+  const { isLoggedIn, toggle, logIn, logOut } = useInternalAuth();
   return (
     <AuthContext.Provider
       value={{ isAuthenticated: isLoggedIn, toggle, logIn, logOut }}
