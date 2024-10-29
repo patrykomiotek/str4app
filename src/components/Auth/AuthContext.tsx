@@ -7,3 +7,6 @@ type AuthContext = {
 export const AuthContext = createContext<AuthContext>({
   isAuthenticated: false,
 });
+
+// AuthContext.Provider
+// AuthContext.displayName
