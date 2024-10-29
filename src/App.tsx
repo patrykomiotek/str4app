@@ -10,8 +10,9 @@ import {
 } from "@mui/material";
 
 import { Button, Input } from "./ui";
-import { AuthContext } from "./components/Auth/AuthContext";
+// import { AuthContext } from "./components/Auth/AuthContext";
 import { AuthInfo } from "./components/Auth/AuthInfo";
+import { AuthProvider } from "./components/Auth/AuthContext";
 
 const theme = createTheme();
 
@@ -36,9 +37,9 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <AuthContext.Provider value={{ isAuthenticated: true }}>
+      <AuthProvider>
         <AuthInfo />
-      </AuthContext.Provider>
+      </AuthProvider>
     </ThemeProvider>
   );
 }
