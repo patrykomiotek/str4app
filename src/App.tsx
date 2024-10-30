@@ -1,12 +1,11 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import { RouterProvider } from "react-router-dom";
+
 import {
   createTheme,
   Button as Kaczke,
   // makeStyles,
-  ThemeProvider,
+  ThemeProvider as MuiThemeProvider,
 } from "@mui/material";
 import {
   ApolloClient,
@@ -16,15 +15,18 @@ import {
   from,
 } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
+import { HelmetProvider } from "react-helmet-async";
+import { Provider } from "react-redux";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-import { Button, Input } from "./ui";
-// import { AuthContext } from "./components/Auth/AuthContext";
-import { AuthInfo } from "./components/Auth/AuthInfo";
 import { AuthProvider } from "./components/Auth/AuthContext";
 import { ErrorBoundary } from "./components/ErrorBoundary";
-import { DisplayFilms } from "./components/DisplayFilms";
-import { RegistrationForm } from "./components/RegistrationForm/RegistrationForm";
-import { SubmitHandler } from "react-hook-form";
+import { ThemeProvider as CustomThemeProvider } from "@components/Theme/ThemeContext";
+import { store } from "./store";
+import { router } from "routes";
+
+import "./App.css";
 
 // const errorLink = onError(({ graphqlErrors, networkError }) => {
 //   if (graphqlErrors) {
@@ -53,6 +55,8 @@ const client = new ApolloClient({
   },
 });
 
+const queryClient = new QueryClient();
+
 const theme = createTheme();
 
 // const useStyles = makeStyles((theme) => {
@@ -70,27 +74,29 @@ function App() {
 
   return (
     <ErrorBoundary>
-      <ApolloProvider client={client}>
-        <ThemeProvider theme={theme}>
-          <RegistrationForm />
-          <DisplayFilms />
-          <br />
-          <br />
-          <Kaczke variant="contained">Hello world</Kaczke>
-          <div>
-            {/* <AuthInfo /> */}
-            <a href="https://vite.dev" target="_blank">
-              <img src={viteLogo} className="logo" alt="Vite logo" />
-            </a>
-            <a href="https://react.dev" target="_blank">
-              <img src={reactLogo} className="logo react" alt="React logo" />
-            </a>
-          </div>
-          <AuthProvider>
-            <AuthInfo />
-          </AuthProvider>
-        </ThemeProvider>
-      </ApolloProvider>
+      <HelmetProvider>
+        <Provider store={store}>
+          <QueryClientProvider client={queryClient}>
+            <ApolloProvider client={client}>
+              <MuiThemeProvider theme={theme}>
+                <AuthProvider>
+                  <CustomThemeProvider>
+                    <RouterProvider router={router} />
+                  </CustomThemeProvider>
+                </AuthProvider>
+
+                {/* <RegistrationForm />
+              <DisplayFilms />
+              <Kaczke variant="contained">Hello world</Kaczke> */}
+                {/* <AuthProvider>
+                <AuthInfo />
+              </AuthProvider> */}
+              </MuiThemeProvider>
+            </ApolloProvider>
+            <ReactQueryDevtools initialIsOpen={true} />
+          </QueryClientProvider>
+        </Provider>
+      </HelmetProvider>
     </ErrorBoundary>
   );
 }
