@@ -13,6 +13,7 @@ import { Button, Input } from "./ui";
 // import { AuthContext } from "./components/Auth/AuthContext";
 import { AuthInfo } from "./components/Auth/AuthInfo";
 import { AuthProvider } from "./components/Auth/AuthContext";
+import { ErrorBoundary } from "./components/ErrorBoundary";
 
 const theme = createTheme();
 
@@ -26,21 +27,23 @@ function App() {
   const [count, setCount] = useState(0);
 
   return (
-    <ThemeProvider theme={theme}>
-      <Kaczke variant="contained">Hello world</Kaczke>
-      <div>
-        {/* <AuthInfo /> */}
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <AuthProvider>
-        <AuthInfo />
-      </AuthProvider>
-    </ThemeProvider>
+    <ErrorBoundary>
+      <ThemeProvider theme={theme}>
+        <Kaczke variant="contained">Hello world</Kaczke>
+        <div>
+          {/* <AuthInfo /> */}
+          <a href="https://vite.dev" target="_blank">
+            <img src={viteLogo} className="logo" alt="Vite logo" />
+          </a>
+          <a href="https://react.dev" target="_blank">
+            <img src={reactLogo} className="logo react" alt="React logo" />
+          </a>
+        </div>
+        <AuthProvider>
+          <AuthInfo />
+        </AuthProvider>
+      </ThemeProvider>
+    </ErrorBoundary>
   );
 }
 
