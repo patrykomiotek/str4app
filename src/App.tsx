@@ -72,7 +72,7 @@ function App() {
     <ErrorBoundary>
       <ApolloProvider client={client}>
         <ThemeProvider theme={theme}>
-          <RegistrationForm onSubmit={handleFormData} />
+          <RegistrationForm />
           <DisplayFilms />
           <br />
           <br />
