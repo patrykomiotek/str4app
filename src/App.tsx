@@ -23,6 +23,7 @@ import { AuthInfo } from "./components/Auth/AuthInfo";
 import { AuthProvider } from "./components/Auth/AuthContext";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { DisplayFilms } from "./components/DisplayFilms";
+import { RegistrationForm } from "./components/RegistrationForm/RegistrationForm";
 
 // const errorLink = onError(({ graphqlErrors, networkError }) => {
 //   if (graphqlErrors) {
@@ -66,6 +67,7 @@ function App() {
     <ErrorBoundary>
       <ApolloProvider client={client}>
         <ThemeProvider theme={theme}>
+          <RegistrationForm />
           <DisplayFilms />
           <br />
           <br />
