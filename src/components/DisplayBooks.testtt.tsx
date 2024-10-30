@@ -6,7 +6,7 @@ import {
   ApolloProvider,
   HttpLink,
   InMemoryCache,
-} from "`@apollo/client";
+} from "@apollo/client";
 
 describe("DisplayBooks component", () => {
   it("should display mocked data", async () => {

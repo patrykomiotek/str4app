@@ -67,6 +67,8 @@ function App() {
       <ApolloProvider client={client}>
         <ThemeProvider theme={theme}>
           <DisplayFilms />
+          <br />
+          <br />
           <Kaczke variant="contained">Hello world</Kaczke>
           <div>
             {/* <AuthInfo /> */}

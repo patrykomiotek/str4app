@@ -3,18 +3,18 @@ import { useQuery } from "@apollo/client";
 import { GET_FILMS } from "../gql/Queries";
 // import { GET_LOCATIONS } from "../gql/Queries";
 
-interface Film {
+type Film = {
   id: number;
   title: string;
   director: string;
   releaseDate: string;
-}
+};
 
-interface FilmsResponse {
+type FilmsResponse = {
   allFilms: {
     films: Film[];
   };
-}
+};
 
 export const DisplayFilms = () => {
   const { loading, error, data } = useQuery<FilmsResponse>(GET_FILMS);
