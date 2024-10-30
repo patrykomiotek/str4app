@@ -24,6 +24,7 @@ import { AuthProvider } from "./components/Auth/AuthContext";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { DisplayFilms } from "./components/DisplayFilms";
 import { RegistrationForm } from "./components/RegistrationForm/RegistrationForm";
+import { SubmitHandler } from "react-hook-form";
 
 // const errorLink = onError(({ graphqlErrors, networkError }) => {
 //   if (graphqlErrors) {
@@ -63,11 +64,15 @@ const theme = createTheme();
 function App() {
   const [count, setCount] = useState(0);
 
+  // const handleFormData: SubmitHandler<RegistrationFormDto> = async (data) => {
+  //   console.log({ data });
+  // };
+
   return (
     <ErrorBoundary>
       <ApolloProvider client={client}>
         <ThemeProvider theme={theme}>
-          <RegistrationForm />
+          <RegistrationForm onSubmit={handleFormData} />
           <DisplayFilms />
           <br />
           <br />

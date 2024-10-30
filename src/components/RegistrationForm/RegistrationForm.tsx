@@ -33,8 +33,16 @@ export const RegistrationForm = () => {
     resolver: zodResolver(validationSchema),
   });
 
-  const handleFormData: SubmitHandler<RegistrationFormDto> = (data) => {
+  const handleFormData: SubmitHandler<RegistrationFormDto> = async (data) => {
     console.log({ data });
+    // const result = await registerUser();, result.success
+
+    // if (result.success) {
+    //   toast.success('Oh yes');
+    //   history.push('/profile')
+    // } else {
+    //   toast.error('Oh no');
+    // }
   };
 
   const watchFields = watch(["password"]);
