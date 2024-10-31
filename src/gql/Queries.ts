@@ -42,3 +42,14 @@ export const GET_FILMS = gql`
     }
   }
 `;
+
+export const GET_FILM = gql`
+  query Film($filmId: ID) {
+    film(filmID: $filmId) {
+      id
+      title
+      director
+      releaseDate
+    }
+  }
+`;

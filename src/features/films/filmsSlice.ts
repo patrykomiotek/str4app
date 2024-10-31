@@ -1,6 +1,8 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../../store";
 import { Film } from "@apptypes/films";
+import { client } from "../../graphQL";
+import { GET_FILM } from "../../gql/Queries";
 
 // Define a type for the slice state
 export interface State {
@@ -14,6 +16,22 @@ const initialState: State = {
   selectedFilm: null,
 };
 
+export const fetchFilmById = createAsyncThunk(
+  "fetch/filmById",
+  async (filmId: Film["id"], thunkApi) => {
+    // thunkApi.dispatch()
+
+    const result = await client.query({
+      query: GET_FILM,
+      variables: {
+        filmId,
+      },
+    });
+
+    return result.data.film as Film;
+  }
+);
+
 export const filmsSlice = createSlice({
   name: "films",
   initialState,
@@ -25,6 +43,20 @@ export const filmsSlice = createSlice({
       state.selectedFilm = action.payload;
     },
   },
+  // thunks
+  extraReducers: (builder) => {
+    builder.addCase(fetchFilmById.fulfilled, (state, { payload }) => {
+      state.selectedFilm = payload;
+    });
+    // builder.addCase(fetchFilmById.rejected, (state, action) => {
+    //   if (action.payload) {
+    //     // Since we passed in `MyKnownError` to `rejectValue` in `updateUser`, the type information will be available here.
+    //     state.error = action.payload.errorMessage
+    //   } else {
+    //     state.error = action.error
+    //   }
+    // })
+  },
 });
 
 export const { setFilms, setSelectedFilm } = filmsSlice.actions;
@@ -32,6 +64,8 @@ export const { setFilms, setSelectedFilm } = filmsSlice.actions;
 // Other code such as selectors can use the imported `RootState` type
 export const selectFilms = (state: RootState) => state.films.films;
 export const selectSelectedFilm = (state: RootState) =>
+  state.films.selectedFilm;
+export const selectedFilmSelector = (state: RootState) =>
   state.films.selectedFilm;
 
 export default filmsSlice.reducer;

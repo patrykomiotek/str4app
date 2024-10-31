@@ -7,14 +7,7 @@ import {
   // makeStyles,
   ThemeProvider as MuiThemeProvider,
 } from "@mui/material";
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  HttpLink,
-  from,
-} from "@apollo/client";
-import { onError } from "@apollo/client/link/error";
+import { ApolloProvider } from "@apollo/client";
 import { HelmetProvider } from "react-helmet-async";
 import { Provider } from "react-redux";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -25,35 +18,9 @@ import { ErrorBoundary } from "./components/ErrorBoundary";
 import { ThemeProvider as CustomThemeProvider } from "@components/Theme/ThemeContext";
 import { store } from "./store";
 import { router } from "routes";
+import { client } from "./graphQL";
 
 import "./App.css";
-
-// const errorLink = onError(({ graphqlErrors, networkError }) => {
-//   if (graphqlErrors) {
-//     // eslint-disable-next-line array-callback-return
-//     graphqlErrors.map(({ message, location, path }) => {
-//       console.error(`GraphQL error: ${path}, ${location}, ${message}`);
-//     });
-//   }
-//   if (networkError) {
-//     console.log("Network error");
-//   }
-// });
-const link = from([
-  // errorLink,
-  new HttpLink({
-    // uri: "https://flyby-router-demo.herokuapp.com/",
-    uri: "https://swapi-graphql.netlify.app/.netlify/functions/index",
-  }),
-]);
-
-const client = new ApolloClient({
-  link,
-  cache: new InMemoryCache(),
-  devtools: {
-    enabled: true,
-  },
-});
 
 const queryClient = new QueryClient();
 

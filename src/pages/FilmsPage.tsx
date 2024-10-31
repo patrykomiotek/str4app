@@ -7,19 +7,29 @@ import { DisplayFilms } from "@components/DisplayFilms";
 import { ErrorBoundary } from "../components/ErrorBoundary";
 import { type FilmsResponse } from "@apptypes/films";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { setFilms } from "@features/films/filmsSlice";
+import { useDispatch, useStore } from "react-redux";
+import { useAppSelector } from "../hooks/redux";
+import {
+  setFilms,
+  fetchFilmById,
+  selectedFilmSelector,
+} from "@features/films/filmsSlice";
 
 export const FilmsPage = () => {
   const dispatch = useDispatch();
+  // const store = useStore();
+  const selectedFilm = useAppSelector((state) => state.films.selectedFilm);
+
   // const [callMeMaybe, {loading, error, data}] = useLazyQuery<FilmsResponse>(GET_FILMS, {
   //   onCompleted
   // });
   const { loading, error, data } = useQuery<FilmsResponse>(GET_FILMS, {
     onCompleted: (data) => {
       dispatch(setFilms(data.allFilms.films));
+      dispatch(fetchFilmById(1));
     },
   });
+  // const selectedFilm = selectedFilmSelector(store);
 
   useEffect(() => {
     // GET_FILMS -> REVIEWS -> LAST
@@ -30,7 +40,7 @@ export const FilmsPage = () => {
   // 1) graphql/apollo chains
   // 2) useEffects + useLazyQuery
   // 3)
-  useEffect(() => {}, data);
+  // useEffect(() => {}, data);
 
   console.log({ loading, error, data });
 
@@ -45,6 +55,9 @@ export const FilmsPage = () => {
     <ErrorBoundary fallback={<p>Films failed</p>}>
       <div>
         <h1>Films</h1>
+        <div>
+          <h1>Selected Film: {selectedFilm?.title}</h1>
+        </div>
         {data && <DisplayFilms data={data} />}
       </div>
     </ErrorBoundary>
