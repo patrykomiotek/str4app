@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useQuery, useLazyQuery } from "@apollo/client";
 
 import { GET_FILMS } from "../gql/Queries";
 // import { GET_LOCATIONS } from "../gql/Queries";
@@ -7,10 +7,19 @@ import { DisplayFilms } from "@components/DisplayFilms";
 import { ErrorBoundary } from "../components/ErrorBoundary";
 import { type FilmsResponse } from "@apptypes/films";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setFilms } from "@features/films/filmsSlice";
 
 export const FilmsPage = () => {
-  const { loading, error, data } = useQuery<FilmsResponse>(GET_FILMS);
-  // const { loading: loadingReviews, error: errorReviews, data: reviewsData } = useQuery<ReviewsResponse>(GET_FILMS_REVIEWS);
+  const dispatch = useDispatch();
+  // const [callMeMaybe, {loading, error, data}] = useLazyQuery<FilmsResponse>(GET_FILMS, {
+  //   onCompleted
+  // });
+  const { loading, error, data } = useQuery<FilmsResponse>(GET_FILMS, {
+    onCompleted: (data) => {
+      dispatch(setFilms(data.allFilms.films));
+    },
+  });
 
   useEffect(() => {
     // GET_FILMS -> REVIEWS -> LAST
