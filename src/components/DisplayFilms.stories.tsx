@@ -10,10 +10,10 @@ const meta = {
 } satisfies Meta<typeof DisplayFilms>;
 
 export default meta;
-// type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof meta>;
 
-export const _DisplayFilms = () => (
-  <MockedProvider mocks={getFilms} addTypename={false}>
-    <DisplayFilms />
-  </MockedProvider>
-);
+export const _DisplayFilms: Story = {
+  args: {
+    data: getFilms[0].result.data,
+  },
+};

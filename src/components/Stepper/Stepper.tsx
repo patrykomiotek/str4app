@@ -21,7 +21,10 @@ const initialState: State = { count: 0 };
 export const reducer = (state: State, action: Action) => {
   switch (action.type) {
     case ActionType.DECREMENT:
-      return { count: state.count - 1 };
+      return {
+        ...state,
+        count: state.count - 1,
+      };
     case ActionType.INCREMENT:
       return { count: state.count + 1 };
     case ActionType.SET:
@@ -36,6 +39,8 @@ const decrement = () => ({ type: ActionType.DECREMENT });
 
 export const Stepper = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  // useEffect -> loadData -> dispatch({ type: 'sth', payload: oneTrunk })
 
   const handleChangeCount: KeyboardEventHandler<HTMLInputElement> = (event) => {
     // console.log(event.target);

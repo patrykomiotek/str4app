@@ -1,36 +1,14 @@
-import { useQuery } from "@apollo/client";
+import { type FilmsResponse } from "@apptypes/films";
 
-import { GET_FILMS } from "../gql/Queries";
-// import { GET_LOCATIONS } from "../gql/Queries";
-
-type Film = {
-  id: number;
-  title: string;
-  director: string;
-  releaseDate: string;
+type Props = {
+  data: FilmsResponse;
 };
 
-type FilmsResponse = {
-  allFilms: {
-    films: Film[];
-  };
-};
-
-export const DisplayFilms = () => {
-  const { loading, error, data } = useQuery<FilmsResponse>(GET_FILMS);
-
-  console.log({ loading, error, data });
-
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-  if (error) {
-    return <p>Error : {error.message}</p>;
-  }
-
+export const DisplayFilms = ({ data }: Props) => {
+  console.log("displayFilms", data.allFilms);
   return (
     <div>
-      {data?.allFilms.films.map(({ id, title, director, releaseDate }) => (
+      {data.allFilms.films.map(({ id, title, director, releaseDate }) => (
         <div key={id}>
           <h3>{title}</h3>
           <b>{director}</b>
