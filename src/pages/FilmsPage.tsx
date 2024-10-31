@@ -19,11 +19,11 @@ export const FilmsPage = () => {
   const dispatch = useDispatch();
   // const store = useStore();
   const selectedFilm = useAppSelector((state) => state.films.selectedFilm);
-
+  const screenLoading = useAppSelector((state) => state.films.isLoading);
   // const [callMeMaybe, {loading, error, data}] = useLazyQuery<FilmsResponse>(GET_FILMS, {
   //   onCompleted
   // });
-  const { loading, error, data } = useQuery<FilmsResponse>(GET_FILMS, {
+  const { error, data } = useQuery<FilmsResponse>(GET_FILMS, {
     onCompleted: (data) => {
       dispatch(setFilms(data.allFilms.films));
       dispatch(fetchFilmById(1));
@@ -42,9 +42,9 @@ export const FilmsPage = () => {
   // 3)
   // useEffect(() => {}, data);
 
-  console.log({ loading, error, data });
+  console.log({ screenLoading, error, data });
 
-  if (loading) {
+  if (screenLoading) {
     return <p>Loading...</p>;
   }
   if (error) {
@@ -54,9 +54,11 @@ export const FilmsPage = () => {
   return (
     <ErrorBoundary fallback={<p>Films failed</p>}>
       <div>
-        <h1>Films</h1>
+        <h1 className="mb-4 text-4xl">Films</h1>
         <div>
-          <h1>Selected Film: {selectedFilm?.title}</h1>
+          <h2 className="text-3xl my-4">
+            Selected Film: {selectedFilm?.title}
+          </h2>
         </div>
         {data && <DisplayFilms data={data} />}
       </div>

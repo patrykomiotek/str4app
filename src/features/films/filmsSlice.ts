@@ -6,12 +6,14 @@ import { GET_FILM } from "../../gql/Queries";
 
 // Define a type for the slice state
 export interface State {
+  isLoading: boolean;
   films: Film[];
   selectedFilm: Film | null;
 }
 
 // Define the initial state using that type
 const initialState: State = {
+  isLoading: true,
   films: [],
   selectedFilm: null,
 };
@@ -45,8 +47,15 @@ export const filmsSlice = createSlice({
   },
   // thunks
   extraReducers: (builder) => {
+    builder.addCase(fetchFilmById.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(fetchFilmById.rejected, (state) => {
+      state.isLoading = false;
+    });
     builder.addCase(fetchFilmById.fulfilled, (state, { payload }) => {
       state.selectedFilm = payload;
+      state.isLoading = false;
     });
     // builder.addCase(fetchFilmById.rejected, (state, action) => {
     //   if (action.payload) {
