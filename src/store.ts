@@ -1,11 +1,13 @@
-import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from './features/CounterRedux/counterSlice';
-import basketReducer from './features/products/basketSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import counterReducer from "./features/CounterRedux/counterSlice";
+import basketReducer from "./features/products/basketSlice";
+import filmsReducer from "./features/films/filmsSlice";
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     basket: basketReducer,
+    films: filmsReducer,
   },
 });
 
