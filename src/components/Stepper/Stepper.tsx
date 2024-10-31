@@ -1,10 +1,10 @@
-import { KeyboardEventHandler, useReducer } from 'react';
-import { Button, Input } from '../../ui';
+import { KeyboardEventHandler, useReducer } from "react";
+import { Button, Input } from "../../ui";
 
-enum ActionType {
-  INCREMENT,
-  DECREMENT,
-  SET,
+export enum ActionType {
+  INCREMENT, // 0
+  DECREMENT, // 1
+  SET, // 2
 }
 
 type State = {
@@ -18,14 +18,14 @@ type Action = {
 
 const initialState: State = { count: 0 };
 
-const reducer = (state: State, action: Action) => {
+export const reducer = (state: State, action: Action) => {
   switch (action.type) {
     case ActionType.DECREMENT:
       return { count: state.count - 1 };
     case ActionType.INCREMENT:
       return { count: state.count + 1 };
     case ActionType.SET:
-      return { count: parseInt(action.payload || '', 10) };
+      return { count: parseInt(action.payload || "", 10) };
     default:
       return state;
   }
@@ -39,7 +39,7 @@ export const Stepper = () => {
 
   const handleChangeCount: KeyboardEventHandler<HTMLInputElement> = (event) => {
     // console.log(event.target);
-    if (event.key.toLowerCase() === 'enter') {
+    if (event.key.toLowerCase() === "enter") {
       dispatch({ type: ActionType.SET, payload: event.currentTarget.value });
     }
   };

@@ -1,10 +1,10 @@
-import { useState, useRef } from 'react';
+import { useState, useRef } from "react";
 
-import { Button } from '@ui';
+import { Button } from "@ui";
 
 export const KeepValue = () => {
   const [myNumber, setMyNumber] = useState(2);
-  const mySet = ['pies', 'kot', 'kaczka'];
+  const mySet = ["pies", "kot", "kaczka"];
   const animalRef = useRef(mySet);
   let value = 1;
   const array = [1, 2, 3];
@@ -13,10 +13,10 @@ export const KeepValue = () => {
   const handleClick = () => {
     value++;
     array.push(4);
-    mySet.push('kapibara');
-    console.log('Value: ', value);
+    mySet.push("kapibara");
+    console.log("Value: ", value);
     setMyNumber(myNumber + 1);
-    animalRef.current.push('motyl');
+    animalRef.current.push("motyl");
   };
 
   return (
